@@ -1,6 +1,18 @@
-  # app/controllers/rumbas_controller.rb
-class RumbasController < ApplicationController
-  soap_service namespace: 'urn:WashOut', wsse_username: "username", wsse_password: "password"
+  # app/controllers/soaps_controller.rb
+class SoapController < ApplicationController
+  soap_service namespace: 'urn:WashOut'#, wsse_username: "a", wsse_password: "a"
+
+
+  # Simple case
+  soap_action "get_data",
+              :args   => :integer,
+              :return => Record
+  def get_data
+    record = Record.new
+    record.id = params[:value]
+    record.name = 'name'
+    render :soap => record
+  end
 
   # Simple case
   soap_action "integer_to_string",
@@ -16,6 +28,7 @@ class RumbasController < ApplicationController
   def concat
     render :soap => (params[:a] + params[:b])
   end
+=begin
 
   # Complex structures
   soap_action "AddCircle",
@@ -58,6 +71,8 @@ class RumbasController < ApplicationController
 
   # You can use all Rails features like filtering, too. A SOAP controller
   # is just like a normal controller with a special routing.
+=end
+
   before_filter :dump_parameters
   def dump_parameters
     Rails.logger.debug params.inspect

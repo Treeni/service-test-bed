@@ -1,5 +1,6 @@
 Api::Application.routes.draw do
-  wash_out :rumbas
+  wash_out :soap
+  resources :rest
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
